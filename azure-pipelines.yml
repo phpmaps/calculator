@@ -5,10 +5,10 @@ pr: none
 
 variables: 
   # Service connection as configured in project settings
-  prodConnection: 'sueytest'
+  prodConnection: 'sueyService'
 
   # App name
-  prodApp: 'sueytest'
+  prodApp: 'sueyService'
 
 stages:
 - stage: build
@@ -43,7 +43,7 @@ stages:
   jobs:
   - deployment: deployProd
     displayName: 'Deploy prod'
-    environment: sueyenv
+    environment: sueyEnvironment
     strategy:
       runOnce:
         deploy:
