@@ -5,10 +5,7 @@ pr: none
 
 variables: 
   # Service connection as configured in project settings
-  prodConnection: 'sueyService'
-
-  # App name
-  prodApp: 'sueyService'
+  pipelineEnv: 'sueyEnv'
 
 stages:
 - stage: build
@@ -43,7 +40,7 @@ stages:
   jobs:
   - deployment: deployProd
     displayName: 'Deploy prod'
-    environment: sueyEnvironment
+    environment: $(pipelineEnv)
     strategy:
       runOnce:
         deploy:
@@ -51,10 +48,3 @@ stages:
           - task: DownloadPipelineArtifact@1
             inputs:
               downloadPath: '$(System.DefaultWorkingDirectory)'
-          - task: AzureWebApp@1
-            inputs:
-              azureSubscription: $(prodConnection)
-              appType: 'webAppLinux'
-              appName: $(prodApp)
-              runtimeStack: 'NODE|10.1'
-              startUpCommand: 'npm run start'
